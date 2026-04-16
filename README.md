@@ -12,8 +12,8 @@ tailrsc [OPTIONS] [FILE]...
 
 | Option | Description |
 |---|---|
-| `-n`, `--lines <N>` | Output the last N lines (default: 10) |
-| `-c`, `--bytes <N>` | Output the last N bytes |
+| `-n`, `--lines <N>` | Output the last N lines (default: 10). N uses format `[+\|-][number][b\|k\|m]` |
+| `-c`, `--bytes <N>` | Output the last N bytes. N uses format `[+\|-][number][b\|k\|m]` |
 | `-b`, `--blocks <N>` | Output the last N 512-byte blocks |
 | `-f`, `--follow` | Output appended data as the file grows |
 | `-F` | Like `-f`, but also detect file rename/rotation |

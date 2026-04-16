@@ -44,3 +44,114 @@ fn cli_help() {
         .success()
         .stdout(predicate::str::contains("Display the last part of a file"));
 }
+
+// ---- Invalid -n argument tests ----
+
+#[test]
+fn cli_invalid_n_text() {
+    Command::cargo_bin(BIN_NAME)
+        .unwrap()
+        .args(["-n", "test"])
+        .assert()
+        .failure()
+        .stderr(predicate::str::contains("illegal offset -- test"));
+}
+
+#[test]
+fn cli_invalid_n_double_plus() {
+    Command::cargo_bin(BIN_NAME)
+        .unwrap()
+        .args(["-n", "++5"])
+        .assert()
+        .failure()
+        .stderr(predicate::str::contains("illegal offset -- ++5"));
+}
+
+#[test]
+fn cli_invalid_n_bad_suffix() {
+    Command::cargo_bin(BIN_NAME)
+        .unwrap()
+        .args(["-n", "12abc"])
+        .assert()
+        .failure()
+        .stderr(predicate::str::contains("illegal offset -- 12abc"));
+}
+
+#[test]
+fn cli_invalid_n_empty() {
+    Command::cargo_bin(BIN_NAME)
+        .unwrap()
+        .args(["-n", ""])
+        .assert()
+        .failure()
+        .stderr(predicate::str::contains("illegal offset"));
+}
+
+// ---- Invalid -c argument tests ----
+
+#[test]
+fn cli_invalid_c_text() {
+    Command::cargo_bin(BIN_NAME)
+        .unwrap()
+        .args(["-c", "test"])
+        .assert()
+        .failure()
+        .stderr(predicate::str::contains("illegal offset -- test"));
+}
+
+#[test]
+fn cli_invalid_c_sign_only() {
+    Command::cargo_bin(BIN_NAME)
+        .unwrap()
+        .args(["-c", "+"])
+        .assert()
+        .failure()
+        .stderr(predicate::str::contains("illegal offset -- +"));
+}
+
+// ---- Valid argument tests ----
+
+#[test]
+fn cli_valid_n_explicit() {
+    Command::cargo_bin(BIN_NAME)
+        .unwrap()
+        .args(["-n", "5"])
+        .assert()
+        .success();
+}
+
+#[test]
+fn cli_valid_n_plus() {
+    Command::cargo_bin(BIN_NAME)
+        .unwrap()
+        .args(["-n", "+5"])
+        .assert()
+        .success();
+}
+
+#[test]
+fn cli_valid_n_minus() {
+    Command::cargo_bin(BIN_NAME)
+        .unwrap()
+        .args(["-n", "-5"])
+        .assert()
+        .success();
+}
+
+#[test]
+fn cli_valid_c_suffix() {
+    Command::cargo_bin(BIN_NAME)
+        .unwrap()
+        .args(["-c", "5k"])
+        .assert()
+        .success();
+}
+
+#[test]
+fn cli_valid_c_plus_suffix() {
+    Command::cargo_bin(BIN_NAME)
+        .unwrap()
+        .args(["-c", "+3b"])
+        .assert()
+        .success();
+}
