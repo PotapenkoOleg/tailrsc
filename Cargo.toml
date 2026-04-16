@@ -1,0 +1,21 @@
+[package]
+name = "tailrsc"
+version = "0.0.1"
+edition = "2024"
+description = "A Rust version of the BSD tail command"
+license = "MIT"
+
+[dependencies]
+anyhow = "1"
+clap = { version = "4", features = ["derive"] }
+num = "0.4"
+once_cell = "1"
+rayon = "1"
+regex = "1"
+tokio = { version = "1", features = ["full"] }
+
+[dev-dependencies]
+assert_cmd = "2"
+predicates = "3"
+pretty_assertions = "1"
+rand = "0.10"
