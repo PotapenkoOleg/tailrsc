@@ -73,6 +73,20 @@ Display multiple files with headers:
 tailrsc -v file1.txt file2.txt
 ```
 
+### Error Handling
+
+When a file cannot be opened, `tailrsc` prints a BSD-compatible error to stderr and exits with a non-zero status code:
+
+```sh
+$ tailrsc missing.txt
+tailrsc: missing.txt: No such file or directory
+
+$ tailrsc file1.txt missing.txt file2.txt
+tailrsc: missing.txt: No such file or directory
+```
+
+All errors are reported before exiting, matching BSD `tail` behaviour.
+
 ## Man Page
 
 ### TAIL(1) - General Commands Manual
