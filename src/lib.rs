@@ -1,6 +1,7 @@
 use clap::Parser;
 use std::path::PathBuf;
 
+pub mod input;
 pub mod offset;
 
 use offset::ParsedOffset;
